@@ -11,6 +11,7 @@ import android.util.Log;
 
 
 import com.wjc.rxjavademo.module.elementary_1.ElementaryFragment;
+import com.wjc.rxjavademo.module.map_2.MapFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,8 +40,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public Fragment getItem(int position) {
-                Log.e("position",position+"!");
-                    return new ElementaryFragment();
+                switch (position){
+                    case 0:
+                        return new ElementaryFragment();
+                    case 1:
+                        return new MapFragment();
+                    default:
+                        Log.e("position",position+"!");
+                        return new ElementaryFragment();
+                }
+
             }
 
 

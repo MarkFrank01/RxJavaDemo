@@ -96,11 +96,11 @@ public class ElementaryFragment extends BaseFragment {
 
     @Override
     protected int getTitleRes() {
-        return R.layout.dialog_elementary;
+        return R.string.title_elementary;
     }
 
     @Override
     protected int getDialogRes() {
-        return R.string.title_elementary;
+        return R.layout.dialog_elementary;
     }
 }

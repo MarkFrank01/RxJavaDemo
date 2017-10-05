@@ -3,10 +3,8 @@ package com.wjc.rxjavademo;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.support.annotation.Nullable;
 
 import butterknife.OnClick;
-import butterknife.Optional;
 import rx.Subscription;
 
 /**
@@ -17,12 +15,12 @@ public abstract class BaseFragment extends Fragment {
 
     protected Subscription subscription;
 
-    @Optional
-    @OnClick(R.id.tip_bt1)
+
+    @OnClick(R.id.tip_bt)
     void tip() {
         new AlertDialog.Builder(getActivity())
                 .setTitle(getTitleRes())
-                .setView(getActivity().getLayoutInflater().inflate(getDialogRes(), null))
+                .setView(getActivity().getLayoutInflater().inflate(getDialogRes(),null))
                 .show();
     }
 
