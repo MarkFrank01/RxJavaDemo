@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +61,7 @@ public class MapFragment extends BaseFragment {
         @Override
         public void onError(Throwable e) {
             swipeRefreshLayout.setRefreshing(false);
+            Log.e("MSG",e.getMessage());
             Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
         }
 
@@ -66,13 +69,14 @@ public class MapFragment extends BaseFragment {
         public void onNext(List<Item> images) {
             swipeRefreshLayout.setRefreshing(false);
             pageTv.setText(getString(R.string.page_with_number,page));
+            Log.e("length",images.size()+"!");
             itemListAdapter.setImages(images);
         }
     };
 
 
     @OnClick(R.id.previousPageBt)
-    void proviousPage(){
+    void previousPage(){
         loadPage(--page);
         if(page == 1){
             previousPageBt.setEnabled(false);
@@ -82,21 +86,33 @@ public class MapFragment extends BaseFragment {
     @OnClick(R.id.nextPageBt)
     void  nextPage(){
         loadPage(++page);
-        if (page==2){
-            previousPageBt.setEnabled(false);
+        if (page == 2){
+            previousPageBt.setEnabled(true);
         }
     }
 
-    private void loadPage(int page){
+//    private void loadPage(int page){
+//        Log.e("PAGE",page+"!");
+//        swipeRefreshLayout.setRefreshing(true);
+//        unsubscribe();
+//        subscription = Network.getGankApi()
+//                .getBeauties(10,page)
+//                .map(GankBeautyResultToItemsMapper.getInstance())
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(observer);
+//
+//    }
+
+    private void loadPage(int page) {
         swipeRefreshLayout.setRefreshing(true);
-        unSubsription();
+        unsubscribe();
         subscription = Network.getGankApi()
-                .getBeauties(10,page)
+                .getBeauties(10, page)
                 .map(GankBeautyResultToItemsMapper.getInstance())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-
     }
 
     @Nullable
@@ -104,6 +120,10 @@ public class MapFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map,container,false);
         ButterKnife.bind(this,view);
+
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setAdapter(itemListAdapter);
+
         swipeRefreshLayout.setColorSchemeColors(Color.BLUE,Color.RED,Color.BLACK);
         swipeRefreshLayout.setEnabled(false);
         return view;

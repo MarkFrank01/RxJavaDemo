@@ -27,10 +27,10 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unSubsription();
+        unsubscribe();
     }
 
-    protected void unSubsription() {
+    protected void unsubscribe() {
         if (subscription != null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
         }

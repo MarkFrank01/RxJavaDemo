@@ -46,6 +46,7 @@ public class Network {
                     .addConverterFactory(gsonConverterFactory)
                     .addCallAdapterFactory(rxJavaCallAdapterFactory)
                     .build();
+            gankApi = retrofit.create(GankApi.class);
         }
 
         return gankApi;

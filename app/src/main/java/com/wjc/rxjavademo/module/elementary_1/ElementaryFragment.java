@@ -65,7 +65,7 @@ public class ElementaryFragment extends BaseFragment {
     @OnCheckedChanged({R.id.searchRb1, R.id.searchRb2, R.id.searchRb3, R.id.searchRb4})
     void onTagChecked(RadioButton searchBb,boolean checked){
         if(checked){
-            unSubsription();
+            unsubscribe();
             zhuangbiListAdapter.setImages(null);
             swipeRefreshLayout.setRefreshing(true);
             search(searchBb.getText().toString());
